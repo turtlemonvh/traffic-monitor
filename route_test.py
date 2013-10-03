@@ -7,6 +7,7 @@ import csv
 from datetime import datetime
 import ConfigParser
 import string
+import time
 
 """
 https://developers.google.com/maps/documentation/directions/#DirectionsRequests
@@ -17,7 +18,7 @@ def check_config():
   """ Read a configuration file to decide what to run"""
   config = ConfigParser.SafeConfigParser()
   config.read('routes.cfg')
-  search_urls = config.get('Routes', 'checkurl').split('\n')
+  routes = config.items('Routes')
   
   # Check day of week
   daysofweek = config.get('Checktimes', 'daysofweek')
@@ -49,10 +50,12 @@ def check_config():
       print "Not running because %d is not a valid time of day" %(hour)
       return []
 
-  return search_urls
+  return routes
 
-def calculate_route_time(url):
+def calculate_route_time(route):
   """Take a url representing a route.  Return time information. """
+  route_name = route[0]
+  url = route[1]
   q = urllib2.urlopen(url)
   response = q.read()
   f1 = string.find(response, 'id="panel_dir"') # Find side panel
@@ -72,13 +75,14 @@ def calculate_route_time(url):
   day_of_week = datetime.today().weekday() # 0 for Monday, 6 for Sunday
   date = datetime.today().strftime('%Y%m%d') # E.g. 20131003
   time_of_day = datetime.now().strftime("%H:%M") # E.g. 15:30
-  return (date, day_of_week, time_of_day, mins)
+  return (route_name, date, day_of_week, time_of_day, mins)
 
 if __name__ == "__main__":
   """Main script """
-  search_urls = check_config()
+  routes = check_config()
   with open('route_times.csv', 'ab+') as csvfile:
     writer = csv.writer(csvfile)
-    for url in search_urls:
-      writer.writerow(calculate_route_time(url))
+    for route in routes:
+      writer.writerow(calculate_route_time(route))
+      time.sleep(2) # wait a couple seconds so we don't freak Google out
   
