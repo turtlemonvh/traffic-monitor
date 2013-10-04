@@ -6,7 +6,9 @@ I couldn't find any nice graphs on commute time by time of day (* see notes belo
 
 ## Dependencies
 
-Just Python 2.7.
+Just Python 2.7 is required for the python script.
+
+There is also an executable for 64 bit Windows.  To use this, download the zip folder from [the "Releases" section](https://github.com/turtlemonvh/traffic-monitor/releases).  Unzip the folder and edit the configuration file to suit your needs.  Run the `route_test.exe` executable within the downloaded folder.
 
 ## Configuration
 
