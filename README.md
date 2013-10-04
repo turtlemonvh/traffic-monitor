@@ -2,7 +2,7 @@
 
 A simple python application for getting traffic data from Google Maps to do some simple commute time by time of day anaysis.
 
-I couldn't find any nice graphs on commute time by time of day - the knowledge about the best time of day to come and go seems to be passed from person to person based on experience.  Why not get some data?
+I couldn't find any nice graphs on commute time by time of day (* see notes below) - the knowledge about the best time of day to come and go seems to be passed from person to person based on experience.  Why not get some data?
 
 ## Dependencies
 
@@ -37,8 +37,9 @@ If neither `-morning` nor `-evening` is included in a route name, the route is r
     
 ## Use
 
-Create the configuration file and set this up to run every few minutes with cron, [Windows Task Scheduler](http://support.microsoft.com/kb/308569), or a similar utility.  I suggest limiting yourself to less than every 10 minutes because the extra data isn't that useful and its more likely to get you noticed by Google.  We're screen scraping here, so lets be considerate.
-For Windows Task Scheduler, make sure you run the command with a user account that has "Log on as a batch job" permissions or you will see the 2147943785 result code.
+Create the configuration file and set this up to run every few minutes with cron, [Windows Task Scheduler](http://support.microsoft.com/kb/308569), or a similar utility.  I suggest limiting yourself to something less frequent than every 10 minutes because the extra data isn't that useful and it's more likely to get you noticed by Google.  We're screen scraping here, so lets be considerate.
+
+For Windows Task Scheduler, make sure you run the command with a user account that has "Log on as a batch job" permissions (any admin account will do) or you will see the 2147943785 error code in your scheduled job.
 
 An output file named `route_times.csv` will be placed in the directory where this is run.  It will look something like the following:
 
@@ -46,7 +47,17 @@ An output file named `route_times.csv` will be placed in the directory where thi
     route_a,20131003,3,19:34,37
     route_a,20131003,3,19:44,36
 
-The 1st column is the name of the route defined in your config file.  The 2nd is the date the route was calculated.  The 3rd is the day of the week where Monday is 0 and Sunday is 6.  The 4th is the time of day that the route was calculated, and the 5th and final column is the estimated time in minutes.
+The contents of the columns in each line are as follows:
 
-After a few weeks of running you should be able to load this up into Excel or a similar application and do some analysis to determine the best time of day to come and go from the office.  If you find anything interesting from doing this, [send me an email](mailto:timothy.vanheest@gtri.gatech.edu).  I'd like to hear about it.
+1. The name of the route defined in your config file.
+2. The date the route was calculated.
+3. The day of the week, where Monday is 0 and Sunday is 6.
+4. The time of day that the route was calculated.
+5. The estimated time to complete the route in minutes.
+
+After a few weeks of running this script you should be able to load your data into Excel or a similar application and do some analysis to determine the best time of day to come and go from the office.  If you find anything interesting from doing this, [send me an email](mailto:timothy.vanheest@gtri.gatech.edu).  I'd like to hear about it.
+
+## Notes
+
+* I was just made aware of the fact that [you can access Google's past traffic density data through Google Maps directly](http://searchengineland.com/google-maps-now-offers-traffic-predictions-13798), and this feature has actually been around for a while.  Still, as far as I know you can't get actual commute time estimates out of this, just colored lines indicating traffic density.  If you want to plan your route, use the Google Maps feature.  If you want some time estimates to look at, this script may still be useful to you.
 
