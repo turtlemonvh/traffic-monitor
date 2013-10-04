@@ -91,7 +91,7 @@ def calculate_route_time(route):
   # Calculate time in minutes
   mins = -1
   if 'hour' in time_data:
-    r = re.search('(\d+) hour[\w ]* (\d+) min')
+    r = re.search('(\d+) hour[\w ]* (\d+) min', time_data)
     mins = int(r.group(1))*60 + int(r.group(2))
   else:
     mins = int(re.search('(\d+) min', time_data).group(1))
