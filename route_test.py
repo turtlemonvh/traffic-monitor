@@ -50,8 +50,11 @@ def check_config():
   elif daysofweek == 'wd':
     if not(datetime.today().weekday() < 5):
       return ({}, None)
+  elif daysofweek == 'we':
+    if not(datetime.today().weekday() >= 5):
+      return ({}, None)
   else:
-    raise Error("Invalid configuation: 'daysofweek' must be 'ad' or 'wd'")
+    raise Error("Invalid configuation: 'daysofweek' must be 'ad', 'wd', or 'we'")
   
   # Check time of day to find which route to run, if any
   route_type = None
@@ -79,9 +82,9 @@ def calculate_route_time(route):
   # Find first route alternative within side panel
   f2 = string.find(response[f1:-1],
     '<div class="altroute-rcol altroute-aux">')
-  # get section of html around this div
+  # Get section of html around this div
   result = response[f1+f2:f1+f2+200]
-  # scrape out time component from this data
+  # Scrape out time component from this data
   time_data = (re.search('<span>(.*)</span>', result)
     .group(1).split('traffic: ')[1])
   
@@ -106,10 +109,10 @@ if __name__ == "__main__":
     writer = csv.writer(csvfile)
     for route_name, route_urls in routes.items():
       if route_type in route_urls:
-        # skip this if not specified
-        # allows user to do just morning or evening routes
+        # Skip this if not specified
+        # Allows user to do just morning or evening routes
         writer.writerow(calculate_route_time(
           (route_name, route_urls[route_type])))
-        # wait a couple seconds so we don't freak Google out
+        # Wait a couple seconds so we don't freak Google out
         time.sleep(2)
   

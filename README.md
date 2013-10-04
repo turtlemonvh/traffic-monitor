@@ -18,7 +18,7 @@ There should be a `routes.cfg` file in the directory where the utility is run.  
     route_a: https://maps.google.com/maps?saddr=Atlanta,+GA&daddr=Nashville,+TN&hl=en
 
     [Checktimes]
-    # daysofweek = wd for week days, ad for all days
+    # daysofweek = wd for weekdays, we for weekends, ad for all days
     daysofweek: wd
 
     # Times are integer militart-time hours in your time zone
