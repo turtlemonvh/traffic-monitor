@@ -63,3 +63,4 @@ After a few weeks of running this script you should be able to load your data in
 
 * I was just made aware of the fact that [you can access Google's past traffic density data through Google Maps directly](http://searchengineland.com/google-maps-now-offers-traffic-predictions-13798), and this feature has actually been around for a while.  Still, as far as I know you can't get actual commute time estimates out of this, just colored lines indicating traffic density.  If you want to plan your route, use the Google Maps feature.  If you want some time estimates to look at, this script may still be useful to you.
 
+* To visualize the output of this tool with a series of plots that allow you to filter on multiple data dimensions simulteneously, see the [traffic monitor plots](https://github.com/turtlemonvh/traffic-monitor-plots) project.
