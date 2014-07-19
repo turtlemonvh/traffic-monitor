@@ -8,6 +8,7 @@ from datetime import datetime
 import ConfigParser
 import string
 import time
+import sys
 from collections import defaultdict
 
 """
@@ -59,25 +60,29 @@ def check_config():
   # Check time of day to find which route to run, if any
   route_type = None
   hour = int(datetime.now().strftime('%H'))
-  if (hour > config.getint('Checktimes', 'morningstart') and
+  if (hour >= config.getint('Checktimes', 'morningstart') and
       hour <= config.getint('Checktimes', 'morningend')):
     route_type = 'morning'
-  elif (hour > config.getint('Checktimes', 'eveningstart') and
+  elif (hour >= config.getint('Checktimes', 'eveningstart') and
       hour <= config.getint('Checktimes', 'eveningend')):
     route_type = 'evening'
   else:
-    print ("Not running because %d is not within specified time ",
+    print ("Not running because %s is not within specified time "
            "ranges for morning and evening commutes") %(hour)
     return ({}, None)
 
   return (formatted_routes, route_type)
 
-def calculate_route_time(route):
+def calculate_route_time(route, log_response=False):
   """Take a url representing a route.  Return time information. """
   route_name = route[0]
   url = route[1]
   q = urllib2.urlopen(url)
   response = q.read()
+  if log_response:
+    with open('response.tmp.html', 'w') as outfile:
+        outfile.write(response)
+        outfile.close()
   f1 = string.find(response, 'id="panel_dir"')  # Find side panel
   # Find first route alternative within side panel
   f2 = string.find(response[f1:-1],
@@ -104,6 +109,10 @@ def calculate_route_time(route):
 
 if __name__ == "__main__":
   """Main script """
+  log_response = False
+  if len(sys.argv) > 1:
+    # Any extra parameters cause the response to be logged
+    log_response = True
   (routes, route_type) = check_config()
   with open('route_times.csv', 'ab+') as csvfile:
     writer = csv.writer(csvfile)
@@ -112,7 +121,7 @@ if __name__ == "__main__":
         # Skip this if not specified
         # Allows user to do just morning or evening routes
         writer.writerow(calculate_route_time(
-          (route_name, route_urls[route_type])))
+          (route_name, route_urls[route_type]), log_response))
         # Wait a couple seconds so we don't freak Google out
         time.sleep(2)
   

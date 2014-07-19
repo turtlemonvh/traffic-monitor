@@ -23,7 +23,7 @@ There should be a `routes.cfg` file in the directory where the utility is run.  
     # daysofweek = wd for weekdays, we for weekends, ad for all days
     daysofweek: wd
 
-    # Times are integer militart-time hours in your time zone
+    # Times are integer military-time hours in your time zone
     morningstart: 5
     morningend: 10
     eveningstart: 15
