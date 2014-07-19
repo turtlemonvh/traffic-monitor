@@ -7,9 +7,12 @@
         <link rel="stylesheet" href="base.css">
     </head>
     <body ng-app="trafficPlots" flow-prevent-drop>
+        <h1>Traffic Monitor: Plots</h1>
         <div ng-controller="baseCtrl">
             <div ng-if="!uploadedFile.name">
-                <h1>Upload a CSV File</h1>
+                <h2>Upload a CSV File</h2>
+                <i>You can find some sample data in <a href="https://github.com/turtlemonvh/traffic-monitor-plots/tree/master/sample_data">the "sample data" directory</a> of <a href="https://github.com/turtlemonvh/traffic-monitor/">the "traffic_monitor" project</a>.</i>
+                <hr/>
             </div>
 
             <div flow-init="{singleFile:true}"

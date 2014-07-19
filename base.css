@@ -1,17 +1,15 @@
 div.left {
     float: left;
-    border: 1px solid black;
-    width: 50%;
-    min-height: 200px;
-    margin-right:-2px;
 }
 
 div.right {
     float: right;
+}
+
+div.half {
     border: 1px solid black;
-    width: 50%;
+    width: 49%;
     min-height: 200px;
-    margin-left:-2px;
 }
 
 div.full {
