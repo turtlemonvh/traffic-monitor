@@ -1,5 +1,7 @@
 # Traffic Monitor
 
+> **WARNING:** Google changed their maps so that they doesn't render without js anymore, so this is broken.  THe visualization component here http://turtlemonvh.github.io/traffic-monitor/ ([source](https://github.com/turtlemonvh/traffic-monitor/tree/gh-pages)) still works fine, though.
+
 A simple python application for getting traffic data from Google Maps to do some simple commute time by time of day anaysis.
 
 I couldn't find any nice graphs on commute time by time of day (* see notes below) - the knowledge about the best time of day to come and go seems to be passed from person to person based on experience.  Why not get some data?
